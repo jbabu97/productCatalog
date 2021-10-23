@@ -2,13 +2,11 @@ const productName = document.querySelector('.product_name');
 const productPrice = document.querySelector('.product_price');
 const nameInput = document.querySelector('.product_name');
 const priceInput = document.querySelector('.product_price');
-const editProduct = document.querySelector('.edit_btn');
-const deleteProduct = document.querySelector('.delete_btn');
 const addProduct = document.querySelector('.submit');
 const table = document.querySelector('.table');
 const msg = document.querySelector('.msg');
 
-const productData = [
+let productData = [
     // {
     //     id: 0,
     //     name: 'Laptop',
@@ -27,7 +25,7 @@ const getProduct = (productList) => {
         productList.forEach(product => {
             let tr = document.createElement('tr');
             tr.className = 'product_list';
-            tr.id = `${product.id}`;
+            tr.id = `product-${product.id}`;
             tr.innerHTML = `
                 <th class='product_name'>${product.name}</th>
                 <td class='product_price'>$ ${product.price}</td>
@@ -70,5 +68,18 @@ addProduct.addEventListener('click', (e) => {
         nameInput.value = '';
         priceInput.value = '';
     };
-    console.log(name, price);
 });
+
+table.addEventListener('click', e => {
+    const target = e.target.parentElement.parentElement;
+    console.log(target);
+    target.remove(target);
+
+    const id = parseInt(target.id.split('-')[1]);
+    console.log( typeof id);
+    const newProductData = productData.filter(product => {
+        return product.id !== id;
+    })
+    productData = newProductData;
+    console.log(productData);
+})
