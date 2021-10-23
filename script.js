@@ -46,13 +46,21 @@ addProduct.addEventListener('click', (e) => {
     e.preventDefault();
     const name = nameInput.value;
     const price = priceInput.value;
+    let id;
+
+    if (productData.length === 0) {
+        id = 0;
+    } else {
+        id = productData[productData.length - 1].id + 1;
+    }
+
     if (name === '' || price === '' || 
         !(!isNaN(parseFloat(price)) && isFinite(price))) {
         alert('Please Input valid information...')
     } else {
         productData.push(
             {
-                id: 0,
+                id,
                 name,
                 price
             }
@@ -61,6 +69,6 @@ addProduct.addEventListener('click', (e) => {
         getProduct(productData);
         nameInput.value = '';
         priceInput.value = '';
-    }
+    };
     console.log(name, price);
 });
